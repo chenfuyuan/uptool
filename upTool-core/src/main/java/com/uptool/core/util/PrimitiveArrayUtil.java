@@ -223,4 +223,239 @@ public class PrimitiveArrayUtil {
         return result;
     }
 
+    /**
+     * 将多个数组合并在一起<br>
+     * 忽略null的数组
+     *
+     * @param arrays 数组集合
+     * @return 合并后的数组
+     * @since 4.6.9
+     */
+    public static int[] addAll(int[]... arrays) {
+        if (arrays.length == 1) {
+            return arrays[0];
+        }
+
+        // 计算总长度
+        int length = 0;
+        final int[] result = new int[length];
+        for (int[] array : arrays) {
+            if (null != array) {
+                System.arraycopy(array, 0, result, length, array.length);
+                length += array.length;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 将多个数组合并在一起<br>
+     * 忽略null的数组
+     *
+     * @param arrays 数组集合
+     * @return 合并后的数组
+     * @since 4.6.9
+     */
+    public static long[] addAll(long[]... arrays) {
+        if (arrays.length == 1) {
+            return arrays[0];
+        }
+
+        // 计算总长度
+        int length = 0;
+        final long[] result = new long[length];
+        for (long[] array : arrays) {
+            if (null != array) {
+                System.arraycopy(array, 0, result, length, array.length);
+                length += array.length;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 将多个数组合并在一起<br>
+     * 忽略null的数组
+     *
+     * @param arrays 数组集合
+     * @return 合并后的数组
+     * @since 4.6.9
+     */
+    public static double[] addAll(double[]... arrays) {
+        if (arrays.length == 1) {
+            return arrays[0];
+        }
+
+        // 计算总长度
+        int length = 0;
+        final double[] result = new double[length];
+        for (double[] array : arrays) {
+            if (null != array) {
+                System.arraycopy(array, 0, result, length, array.length);
+                length += array.length;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 将多个数组合并在一起<br>
+     * 忽略null的数组
+     *
+     * @param arrays 数组集合
+     * @return 合并后的数组
+     * @since 4.6.9
+     */
+    public static float[] addAll(float[]... arrays) {
+        if (arrays.length == 1) {
+            return arrays[0];
+        }
+
+        // 计算总长度
+        int length = 0;
+        final float[] result = new float[length];
+        for (float[] array : arrays) {
+            if (null != array) {
+                System.arraycopy(array, 0, result, length, array.length);
+                length += array.length;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 将多个数组合并在一起<br>
+     * 忽略null的数组
+     *
+     * @param arrays 数组集合
+     * @return 合并后的数组
+     * @since 4.6.9
+     */
+    public static char[] addAll(char[]... arrays) {
+        if (arrays.length == 1) {
+            return arrays[0];
+        }
+
+        // 计算总长度
+        int length = 0;
+        final char[] result = new char[length];
+        for (char[] array : arrays) {
+            if (null != array) {
+                System.arraycopy(array, 0, result, length, array.length);
+                length += array.length;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 将多个数组合并在一起<br>
+     * 忽略null的数组
+     *
+     * @param arrays 数组集合
+     * @return 合并后的数组
+     * @since 4.6.9
+     */
+    public static boolean[] addAll(boolean[]... arrays) {
+        if (arrays.length == 1) {
+            return arrays[0];
+        }
+
+        // 计算总长度
+        int length = 0;
+        final boolean[] result = new boolean[length];
+        for (boolean[] array : arrays) {
+            if (null != array) {
+                System.arraycopy(array, 0, result, length, array.length);
+                length += array.length;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 将多个数组合并在一起<br>
+     * 忽略null的数组
+     *
+     * @param arrays 数组集合
+     * @return 合并后的数组
+     * @since 4.6.9
+     */
+    public static short[] addAll(short[]... arrays) {
+        if (arrays.length == 1) {
+            return arrays[0];
+        }
+
+        // 计算总长度
+        int length = 0;
+        final short[] result = new short[length];
+        for (short[] array : arrays) {
+            if (null != array) {
+                System.arraycopy(array, 0, result, length, array.length);
+                length += array.length;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 生成一个从0开始的数字列表<br>
+     *
+     * @param excludedEnd 结束的数字（不包含）
+     * @return 数字列表
+     */
+    public static int[] range(int excludedEnd){
+        return range(0, excludedEnd, 1);
+    }
+
+    /**
+     * 生成一个数字列表<br>
+     * 自动判定正序反序
+     *
+     * @param includedStart 开始的数字（包含）
+     * @param excludedEnd   结束的数字（不包含）
+     * @return 数字列表
+     */
+    public static int[] range(int includedStart, int excludedEnd) {
+        return range(includedStart, excludedEnd, 1);
+    }
+
+
+    /**
+     * 生成一个数字列表<br>
+     * 自动判定正序反序
+     *
+     * @param includedStart 开始的数字（包含）
+     * @param excludedEnd   结束的数字（不包含）
+     * @param step          步进
+     * @return 数字列表
+     */
+    public static int[] range(int includedStart, int excludedEnd, int step) {
+        //当起始数字大于结束数字时，调换2者内容
+        if (includedStart > excludedEnd) {
+            int temp = includedStart;
+            includedStart = excludedEnd;
+            excludedEnd = temp;
+        }
+
+        if (step < 0) {
+            step = 1;
+        }
+
+        int deviation = excludedEnd - includedStart;
+        int length = deviation / step;
+        if (deviation % step != 0) {
+            length += 1;
+        }
+
+        int[] result = new int[length];
+
+        for (int i = 0; i < length; i++) {
+            result[0] = includedStart;
+            includedStart += step;
+        }
+
+        return result;
+    }
+
 }

@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * @Description: 生成工具类
- * @Author chenfuyuan
+ * @Author Vito.Chen
  * @Date 2021/2/12 21:33
  */
 public class GenerateArrayUtil {

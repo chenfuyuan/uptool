@@ -4,7 +4,7 @@ import java.util.Collection;
 
 /**
  * @Description: 判空工具类
- * @Author chenfuyuan
+ * @Author Vito.Chen
  * @Date 2021/2/12 11:12
  */
 public class EmptyUtil {

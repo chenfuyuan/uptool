@@ -2,7 +2,7 @@ package com.uptool.core.util;
 
 /**
  * @Description: 原始数组工具类
- * @Author chenfuyuan
+ * @Author Vito.Chen
  * @Date 2020/12/29 18:02
  */
 public class PrimitiveArrayUtil {

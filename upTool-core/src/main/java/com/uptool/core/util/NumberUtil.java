@@ -1,6 +1,8 @@
 package com.uptool.core.util;
 
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * @Description: 数字类型工具类
@@ -37,6 +39,11 @@ public class NumberUtil {
      * 等于
      */
     public static final int COMPARE_EQUAL = 0;
+
+    /**
+     * 默认保留两位小数
+     */
+    public static final int DEFAULT_SCALE = 2;
 
     /*=======================isZero()======================*/
     /**
@@ -103,6 +110,62 @@ public class NumberUtil {
         return value == null || isZero(value);
     }
 
+
+    /**
+     * 拆箱，避免为空
+     * @param value 值
+     * @return 双精度浮点数据类型
+     */
+    public static double valueOf(Double value) {
+        return isEmptyOrZero(value) ? DOUBLE_ZERO : value;
+    }
+
+    /**
+     * 拆箱，避免为空
+     * @param value 值
+     * @return 整型基础数据类型
+     */
+    public static int valueOf(Integer value) {
+        return isEmptyOrZero(value) ? ZERO : value;
+    }
+
+    /**
+     * Double转换成BigDecimal类型
+     * @param value 值
+     * @return 对应BigDecimal对象
+     */
+    public static BigDecimal toBigDecimal(double value) {
+       return BigDecimal.valueOf(valueOf(value));
+    }
+
+
+    /**
+     * Integer转换成BigDecimal类型
+     * @param value 值
+     * @return 对应BigDecimal对象
+     */
+    public static BigDecimal toBigDecimal(int value) {
+        return BigDecimal.valueOf(valueOf(value));
+    }
+
+    /**
+     * 保留小数个数
+     * @param value 值
+     * @param scale 小数位数
+     * @return
+     */
+    public static double fixScale(double value,int scale) {
+        return BigDecimal.valueOf(valueOf(value)).setScale(scale, RoundingMode.HALF_UP).doubleValue();
+    }
+
+    /**
+     * 默认保留 DEFAULT_SCALE位 小数
+     * @param value 值
+     * @return
+     */
+    public static double fixScale(double value) {
+        return fixScale(value, DEFAULT_SCALE);
+    }
 
 
 }

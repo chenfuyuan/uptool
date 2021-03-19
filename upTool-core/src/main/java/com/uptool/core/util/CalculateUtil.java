@@ -132,6 +132,63 @@ public class CalculateUtil {
         return toBigDecimal(v1).subtract(toBigDecimal(v2)).intValue();
     }
 
+    /**
+     * 值1乘值2
+     * @param v1 值1
+     * @param v2 值2
+     * @return 操作结果
+     */
+    public static int multiply(int v1, int v2) {
+        return toBigDecimal(v1).multiply(toBigDecimal(v2)).intValue();
+    }
 
+
+    /**
+     * 值1乘值2
+     * @param v1 值1
+     * @param v2 值2
+     * @return 操作结果
+     */
+    public static double multiply(double v1, double v2) {
+        return toBigDecimal(v1).multiply(toBigDecimal(v2)).doubleValue();
+    }
+
+    /**
+     * 值1乘值2
+     * @param v1 值1
+     * @param v2 值2
+     * @return 操作结果
+     */
+    public static double multiply(double v1, int v2) {
+        return toBigDecimal(v1).multiply(toBigDecimal(v2)).doubleValue();
+    }
+
+    /**
+     * 值1乘值2
+     * @param v1 值1
+     * @param v2 值2
+     * @return 操作结果
+     */
+    public static double multiply(int v1, double v2) {
+        return toBigDecimal(v1).multiply(toBigDecimal(v2)).doubleValue();
+    }
+
+    /**
+     * 平方根
+     * @param v 值
+     * @return 计算结果
+     */
+    public static double sqrt(double v) {
+        return toBigDecimal(Math.sqrt(v)).doubleValue();
+    }
+
+    /**
+     * 平方根
+     * @param v 值
+     * @return 计算结果
+     */
+    public static double sqrt(int v) {
+        return toBigDecimal(Math.sqrt(v)).doubleValue();
+    }
 
 }

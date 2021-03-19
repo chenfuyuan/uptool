@@ -135,7 +135,7 @@ public class NumberUtil {
      * @return 对应BigDecimal对象
      */
     public static BigDecimal toBigDecimal(double value) {
-       return BigDecimal.valueOf(valueOf(value));
+       return BigDecimal.valueOf(valueOf(value)).setScale(DEFAULT_SCALE);
     }
 
 

@@ -50,11 +50,11 @@ public class SortUtil {
      * @param i 交换索引1
      * @param j 交换索引2
      */
-    public static void exch(Comparable[] a, int i, int j) {
+    public static void exch(Comparable<?>[] a, int i, int j) {
         if (i == j) {
             return;
         }
-        Comparable t = a[i];
+        Comparable<?>t = a[i];
         a[i] = a[j];
         a[j] = t;
     }
@@ -94,11 +94,11 @@ public class SortUtil {
      * 遍历展现数组
      * @param array 数组
      */
-    public static void show(Comparable[] array) {
+    public static void show(Comparable<?>[] array) {
 
         //单行打印数组
-        for (int i = 0,length = array.length; i < length; i++) {
-            System.out.print(array[i] + "");
+        for (Comparable<?> comparable : array) {
+            System.out.print(comparable + "");
         }
         System.out.println();
     }
@@ -109,7 +109,7 @@ public class SortUtil {
      * @param startIndex 开始索引
      * @param length 长度
      */
-    public static void show(Comparable[] array,int startIndex,int length) {
+    public static void show(Comparable<?>[] array,int startIndex,int length) {
         int endIndex = getEndIndex(startIndex,array.length,length);
         //单行打印数组
         for (int i = startIndex; i <= endIndex; i++) {
@@ -123,7 +123,7 @@ public class SortUtil {
      * @param array 数组
      * @return 是否有序
      */
-    public static boolean isSorted(Comparable[] array) {
+    public static boolean isSorted(Comparable<?>[] array) {
         return isSorted(array, ArrayUtil.START_INDEX, array.length);
     }
 
@@ -134,7 +134,7 @@ public class SortUtil {
      ** @param length 排序长度
      * @return 是否有序
      */
-    public static boolean isSorted(Comparable[] array,int startIndex ,int length) {
+    public static boolean isSorted(Comparable<?>[] array,int startIndex ,int length) {
         int endIndex = getEndIndex(startIndex, array.length, length);
 
         if (length<=1 || array.length<=1) {

@@ -60,6 +60,37 @@ public class SortUtil {
     }
 
     /**
+     * 使用位运算交换次序，提高效率
+     * @param a 交换数据源
+     * @param i 交换索引1
+     * @param j 交换索引2
+     */
+    public static void exch(int[] a, int i, int j) {
+        if (i == j) {
+            return;
+        }
+        a[i] = a[i] ^ a[j];
+        a[j] = a[i] ^ a[j];
+        a[i] = a[i] ^ a[j];
+    }
+
+    /**
+     * 使用位运算交换次序，提高效率
+     * @param a 交换数据源
+     * @param i 交换索引1
+     * @param j 交换索引2
+     */
+    public static void exch(long[] a, int i, int j) {
+        if (i == j) {
+            return;
+        }
+        a[i] = a[i] ^ a[j];
+        a[j] = a[i] ^ a[j];
+        a[i] = a[i] ^ a[j];
+    }
+
+
+    /**
      * 遍历展现数组
      * @param array 数组
      */
@@ -73,12 +104,50 @@ public class SortUtil {
     }
 
     /**
+     * 遍历展现数组(从low到hight)
+     * @param array 数组
+     * @param low 低索引
+     * @param hight 高索引
+     */
+    public static void show(Comparable[] array,int low,int hight) {
+
+        //单行打印数组
+        for (int i = low; i <= hight; i++) {
+            System.out.print(array[i] + "");
+        }
+        System.out.println();
+    }
+
+    /**
      * 判断是否有序
      * @param array 数组
      * @return 是否有序
      */
     public static boolean isSorted(Comparable[] array) {
         for (int i = 1; i < array.length; i++) {
+            if (less(array[i], array[i - 1])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * 判断是否有序(从low到hight位置判断)
+     * @param array 数组
+     ** @param low 低索引
+     ** @param hight 高索引
+     * @return 是否有序
+     */
+    public static boolean isSorted(Comparable[] array,int low ,int hight) {
+        if (low > hight) {
+            throw new IndexOutOfBoundsException("低索引大于高索引");
+        }
+        if (low == hight) {
+            return true;
+        }
+        for (int i = low+1; i <= hight; i++) {
             if (less(array[i], array[i - 1])) {
                 return false;
             }

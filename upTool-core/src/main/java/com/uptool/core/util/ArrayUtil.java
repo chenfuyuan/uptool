@@ -26,4 +26,49 @@ public class ArrayUtil {
         System.arraycopy(array,START_INDEX,result,START_INDEX,min);
         return result;
     }
+
+    /**
+     * 拷贝数组
+     * @param source 源
+     * @param target 目标
+     * @param <T>
+     */
+    public static <T> void copy(T[] source,T[] target) {
+        int minLength = Math.min(source.length, target.length);
+        copy(source,target,START_INDEX,minLength);
+    }
+
+    /**
+     * 拷贝数组
+     * @param source 源
+     * @param target 目标
+     * @param low 低索引
+     * @param hight 高索引
+     * @param <T>
+     */
+    public static <T> void copy(T[] source, T[] target, int low, int hight) {
+        if (low > hight) {
+            low = low ^ hight;
+            hight = low ^ hight;
+            low = low ^ hight;
+        }
+
+        if (source.length < hight || target.length < hight) {
+            throw new IndexOutOfBoundsException("索引位置错误，超过数组索引范围;");
+        }
+        while (low <= hight) {
+            target[low] = source[low];
+            low++;
+        }
+    }
+
+    public static <T> boolean equals(T[] array1, T[] array2, int low, int hight) {
+        while (low <= hight) {
+            if (!array1[low].equals(array2[low])) {
+                return false;
+            }
+            low++;
+        }
+        return true;
+    }
 }

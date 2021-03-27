@@ -106,13 +106,13 @@ public class SortUtil {
     /**
      * 遍历展现数组(从low到hight)
      * @param array 数组
-     * @param low 低索引
-     * @param hight 高索引
+     * @param startIndex 开始索引
+     * @param length 长度
      */
-    public static void show(Comparable[] array,int low,int hight) {
-
+    public static void show(Comparable[] array,int startIndex,int length) {
+        int endIndex = getEndIndex(startIndex,array.length,length);
         //单行打印数组
-        for (int i = low; i <= hight; i++) {
+        for (int i = startIndex; i <= endIndex; i++) {
             System.out.print(array[i] + "");
         }
         System.out.println();
@@ -124,7 +124,24 @@ public class SortUtil {
      * @return 是否有序
      */
     public static boolean isSorted(Comparable[] array) {
-        for (int i = 1; i < array.length; i++) {
+        return isSorted(array, ArrayUtil.START_INDEX, array.length);
+    }
+
+    /**
+     * 判断是否有序(从low到hight位置判断)
+     * @param array 数组
+     ** @param startIndex 低索引
+     ** @param length 排序长度
+     * @return 是否有序
+     */
+    public static boolean isSorted(Comparable[] array,int startIndex ,int length) {
+        int endIndex = getEndIndex(startIndex, array.length, length);
+
+        if (length<=1 || array.length<=1) {
+            return true;
+        }
+
+        for (int i = startIndex+1; i <= endIndex; i++) {
             if (less(array[i], array[i - 1])) {
                 return false;
             }
@@ -134,25 +151,20 @@ public class SortUtil {
     }
 
     /**
-     * 判断是否有序(从low到hight位置判断)
-     * @param array 数组
-     ** @param low 低索引
-     ** @param hight 高索引
-     * @return 是否有序
+     * 根据开始索引和数组长度及所要操作的长度算出结束索引
+     * @param startIndex 开始索引
+     * @param arrayLength 数组长度
+     * @param length 操作长度
+     * @return 结束索引
      */
-    public static boolean isSorted(Comparable[] array,int low ,int hight) {
-        if (low > hight) {
-            throw new IndexOutOfBoundsException("低索引大于高索引");
+    public static int getEndIndex(int startIndex,int arrayLength,int length) {
+        if (length <= 0) {
+            throw new ArrayIndexOutOfBoundsException("操作的数组长度小于等于0");
         }
-        if (low == hight) {
-            return true;
+        int result = Math.min(arrayLength, startIndex + length) - 1;
+        if (result < 0) {
+            throw new ArrayIndexOutOfBoundsException("结束索引出现越界情况;");
         }
-        for (int i = low+1; i <= hight; i++) {
-            if (less(array[i], array[i - 1])) {
-                return false;
-            }
-        }
-
-        return true;
+        return result;
     }
 }

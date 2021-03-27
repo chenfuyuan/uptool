@@ -42,24 +42,46 @@ public class ArrayUtil {
      * 拷贝数组
      * @param source 源
      * @param target 目标
-     * @param low 低索引
-     * @param hight 高索引
+     * @param startIndex 开始索引
+     * @param length 长度
      * @param <T>
      */
-    public static <T> void copy(T[] source, T[] target, int low, int hight) {
-        if (low > hight) {
-            low = low ^ hight;
-            hight = low ^ hight;
-            low = low ^ hight;
-        }
+    public static <T> void copy(T[] source, T[] target, int startIndex, int length) {
+        /*int endIndex = SortUtil.getEndIndex(startIndex, source.length, length);
 
-        if (source.length < hight || target.length < hight) {
-            throw new IndexOutOfBoundsException("索引位置错误，超过数组索引范围;");
-        }
-        while (low <= hight) {
-            target[low] = source[low];
-            low++;
-        }
+        while (startIndex <= length) {
+            target[startIndex] = source[startIndex];
+            startIndex++;
+        }*/
+        copy(source,target,startIndex,length,startIndex);
+    }
+
+    public static <T> void copy(T[] source, T[] target, int sourceStartIndex, int length, int targetStartIndex) {
+        System.arraycopy(source,sourceStartIndex,target,targetStartIndex,length);
+    }
+
+    /**
+     * 克隆数组
+     * @param source 数据源
+     * @param <T> 数据类型
+     * @return 克隆后的数组
+     */
+    public static <T> T[] cloneArray(T[] source) {
+        return cloneArray(source, START_INDEX, source.length);
+    }
+
+    /**
+     * 克隆数组
+     * @param source 数据源
+     * @param startIndex 开始位置
+     * @param length 克隆长度
+     * @param <T> 数据类型
+     * @return 克隆后的数组
+     */
+    public static <T> T[] cloneArray(T[] source, int startIndex, int length) {
+        T[] result = (T[]) new Object[length];
+        copy(source,result,startIndex,length,START_INDEX);
+        return result;
     }
 
     public static <T> boolean equals(T[] array1, T[] array2, int low, int hight) {

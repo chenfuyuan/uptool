@@ -93,4 +93,18 @@ public class ArrayUtil {
         }
         return true;
     }
+
+    /**
+     * 获取一个索引数组
+     * @param startIndex 开始索引
+     * @param length 长度
+     * @return
+     */
+    public static int[] getIndexArray(int startIndex, int length) {
+        int[] result = new int[length];
+        for (int i = 0; i < length; i++) {
+            result[i] = startIndex + i;
+        }
+        return result;
+    }
 }

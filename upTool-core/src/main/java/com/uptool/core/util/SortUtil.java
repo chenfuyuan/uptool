@@ -98,7 +98,7 @@ public class SortUtil {
 
         //单行打印数组
         for (Comparable<?> comparable : array) {
-            System.out.print(comparable + "");
+            System.out.print(comparable + " ");
         }
         System.out.println();
     }

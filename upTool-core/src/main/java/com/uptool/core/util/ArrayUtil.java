@@ -1,5 +1,9 @@
 package com.uptool.core.util;
 
+import com.uptool.core.Exception.MatchNoSuchClassException;
+
+import java.lang.reflect.Array;
+
 /**
  * @Description: 数组工具类
  * @Author chenfuyuan
@@ -21,11 +25,45 @@ public class ArrayUtil {
      * @return 扩容后数组
      */
     public static <T> T[] resize(T[] array, int newLength) {
-        T[] result = (T[]) new Object[newLength];
+        if (newLength == 0) {
+            throw new RuntimeException("扩容容量为0");
+        }
+        Class classType = null;
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != null) {
+                classType = array[i].getClass();
+                break;
+            }
+        }
+
+        if (classType == null) {
+            throw new MatchNoSuchClassException();
+        }
+
+        T[] result = (T[]) Array.newInstance(classType,newLength);
         int min = array.length > newLength ? newLength : array.length;
         System.arraycopy(array,START_INDEX,result,START_INDEX,min);
         return result;
     }
+
+    /**
+     * 数组扩容
+     * @param array 扩容数组
+     * @param newLength 新长度
+     * @param <T> 类型
+     * @return 扩容后数组
+     */
+    public static <T> T[] resize(T[] array, int newLength,Class<?> classType) {
+        if (newLength == 0) {
+            throw new RuntimeException("扩容容量为0");
+        }
+        T[] result = (T[]) Array.newInstance(classType,newLength);
+        int min = array.length > newLength ? newLength : array.length;
+        System.arraycopy(array,START_INDEX,result,START_INDEX,min);
+        return result;
+    }
+
 
     /**
      * 拷贝数组
@@ -107,4 +145,16 @@ public class ArrayUtil {
         }
         return result;
     }
+
+    /**
+     * 新建一个数组
+     * @param size 数组大小
+     * @param classType 数组类型
+     * @param <T> 泛型
+     * @return 新建的数组
+     */
+    public static<T> T[] newArray(int size,Class<T> classType) {
+        return (T[]) Array.newInstance(classType, size);
+    }
+
 }

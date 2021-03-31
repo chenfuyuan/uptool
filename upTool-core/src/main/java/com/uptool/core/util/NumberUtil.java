@@ -45,6 +45,16 @@ public class NumberUtil {
      */
     public static final int DEFAULT_SCALE = 2;
 
+    /**
+     * int类型最大值
+     */
+    public static final int INT_MAX = 2147483647;
+
+    /**
+     * int类型最小值
+     */
+    public static final int INT_MIN = -2147483648;
+
     /*=======================isZero()======================*/
     /**
      * 判断整型数据是否为0

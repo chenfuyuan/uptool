@@ -113,7 +113,7 @@ public class SortUtil {
         int endIndex = getEndIndex(startIndex,array.length,length);
         //单行打印数组
         for (int i = startIndex; i <= endIndex; i++) {
-            System.out.print(array[i] + "");
+            System.out.print(array[i] + " ");
         }
         System.out.println();
     }

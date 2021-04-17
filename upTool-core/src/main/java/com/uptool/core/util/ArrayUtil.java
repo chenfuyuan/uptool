@@ -288,7 +288,7 @@ public class ArrayUtil {
      * @param <T> 数组类型
      */
     private static<T> void offsetPre(T[] array, int index, int offset) {
-        for (int i = 0, endFlag = index - offset; i <= endFlag; i++) {
+        for (int i = index-offset, endFlag = array.length - offset; i < endFlag; i++) {
             array[i] = array[i + offset];
         }
     }

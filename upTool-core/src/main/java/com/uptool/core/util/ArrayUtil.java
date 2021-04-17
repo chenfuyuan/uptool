@@ -4,6 +4,9 @@ import com.uptool.core.Exception.ArgumentEmptyException;
 import com.uptool.core.Exception.MatchNoSuchClassException;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
+
+import static com.uptool.core.util.EmptyUtil.isEmpty;
 
 /**
  * @Description: 数组工具类
@@ -39,11 +42,11 @@ public class ArrayUtil {
         if (newLength == 0) {
             throw new RuntimeException("扩容容量为0");
         }
-        Class classType = null;
+        Class<?> classType = null;
 
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] != null) {
-                classType = array[i].getClass();
+        for (T t : array) {
+            if (t != null) {
+                classType = t.getClass();
                 break;
             }
         }
@@ -53,7 +56,7 @@ public class ArrayUtil {
         }
 
         T[] result = (T[]) Array.newInstance(classType, newLength);
-        int min = array.length > newLength ? newLength : array.length;
+        int min = Math.min(array.length, newLength);
         System.arraycopy(array, START_INDEX, result, START_INDEX, min);
         return result;
     }
@@ -71,7 +74,7 @@ public class ArrayUtil {
             throw new RuntimeException("扩容容量为0");
         }
         int[] result = new int[newLength];
-        int min = array.length > newLength ? newLength : array.length;
+        int min = Math.min(array.length, newLength);
         System.arraycopy(array, START_INDEX, result, START_INDEX, min);
         return result;
     }
@@ -89,7 +92,7 @@ public class ArrayUtil {
             throw new RuntimeException("扩容容量为0");
         }
         T[] result = (T[]) Array.newInstance(classType, newLength);
-        int min = array.length > newLength ? newLength : array.length;
+        int min = Math.min(array.length, newLength);
         System.arraycopy(array, START_INDEX, result, START_INDEX, min);
         return result;
     }
@@ -100,7 +103,7 @@ public class ArrayUtil {
      *
      * @param source 源
      * @param target 目标
-     * @param <T>
+     * @param <T> 数组类型
      */
     public static <T> void copy(T[] source, T[] target) {
         int minLength = Math.min(source.length, target.length);
@@ -114,15 +117,9 @@ public class ArrayUtil {
      * @param target     目标
      * @param startIndex 开始索引
      * @param length     长度
-     * @param <T>
+     * @param <T> 数组类型
      */
     public static <T> void copy(T[] source, T[] target, int startIndex, int length) {
-        /*int endIndex = SortUtil.getEndIndex(startIndex, source.length, length);
-
-        while (startIndex <= length) {
-            target[startIndex] = source[startIndex];
-            startIndex++;
-        }*/
         copy(source, target, startIndex, length, startIndex);
     }
 
@@ -171,7 +168,7 @@ public class ArrayUtil {
      *
      * @param startIndex 开始索引
      * @param length     长度
-     * @return
+     * @return 索引数组
      */
     public static int[] getIndexArray(int startIndex, int length) {
         int[] result = new int[length];
@@ -201,13 +198,11 @@ public class ArrayUtil {
      * @param <T>          数组类型
      */
     public static <T> void initArray(T[] array, T defaultValue) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             throw new ArgumentEmptyException("传递进来的数组对象为空;");
         }
 
-        for (int i = 0; i < array.length; i++) {
-            array[i] = defaultValue;
-        }
+        Arrays.fill(array, defaultValue);
     }
 
     /**
@@ -220,7 +215,7 @@ public class ArrayUtil {
      * @param <T>          数组类型
      */
     public static <T> void initArray(T[] array, T defaultValue, int startIndex, int length) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             throw new ArgumentEmptyException("传递进来的数组对象为空;");
         }
 
@@ -238,13 +233,11 @@ public class ArrayUtil {
      * @param defaultValue 默认值
      */
     public static void initArray(int[] array, int defaultValue) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             throw new ArgumentEmptyException("传递进来的数组对象为空;");
         }
 
-        for (int i = 0; i < array.length; i++) {
-            array[i] = defaultValue;
-        }
+        Arrays.fill(array, defaultValue);
     }
 
     /**
@@ -256,7 +249,7 @@ public class ArrayUtil {
      * @param length       操作长度
      */
     public static void initArray(int[] array, int defaultValue, int startIndex, int length) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             throw new ArgumentEmptyException("传递进来的数组对象为空;");
         }
         int endIndex = SortUtil.getEndIndex(startIndex, array.length, length);
@@ -264,4 +257,67 @@ public class ArrayUtil {
             array[i] = defaultValue;
         }
     }
+
+    /**
+     * 将数组索引位置开始进行偏移
+     * @param array 数组
+     * @param index 索引
+     * @param offset 偏移量
+     * @param <T> 数组类型
+     */
+    public static<T> void offset(T[] array, int index, int offset) {
+        if (offset == 0 || array.length - Math.abs(offset) <= 0) {
+            return;
+        }
+
+        if (offset > 0) {
+            //元素后移
+            offsetBack(array,index,offset);
+        }else{
+            //元素前移
+            offsetPre(array,index,-offset);
+        }
+    }
+
+
+    /**
+     * 向前偏移
+     * @param array 数组
+     * @param index 偏移开始索引
+     * @param offset 偏移量
+     * @param <T> 数组类型
+     */
+    private static<T> void offsetPre(T[] array, int index, int offset) {
+        for (int i = 0, endFlag = index - offset; i <= endFlag; i++) {
+            array[i] = array[i + offset];
+        }
+    }
+
+    /**
+     * 向后偏移
+     * @param array 数组
+     * @param index 偏移开始索引
+     * @param offset 偏移量
+     * @param <T> 数组类型
+     */
+    private static<T> void offsetBack(T[] array, int index, int offset) {
+        for (int i = array.length - 1, endFlag = index + offset; i >= endFlag; i--) {
+            array[i] = array[i - offset];
+        }
+    }
+
+    /**
+     * 交换数组元素
+     * 将array[i] 和 array[j]互换
+     * @param array 数组
+     * @param i 索引i
+     * @param j 索引j
+     * @param <T> 数组类型
+     */
+    public static <T> void exch(T[] array, int i, int j) {
+        T temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
 }

@@ -278,9 +278,10 @@ public class ArrayUtil {
      * @param <T> 数组类型
      */
     public static<T> void offset(T[] array, int startIndex, int offset,int endIndex) {
-        if (offset == 0 || array.length - Math.abs(offset) <= 0) {
+        if (offset == 0 || array.length - Math.abs(offset) <= 0 || startIndex > endIndex) {
             return;
         }
+
 
         if (offset > 0) {
             //元素后移,直接覆盖后方元素

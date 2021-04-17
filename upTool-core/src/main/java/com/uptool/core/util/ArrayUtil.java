@@ -266,16 +266,28 @@ public class ArrayUtil {
      * @param <T> 数组类型
      */
     public static<T> void offset(T[] array, int index, int offset) {
+        offset(array,index,offset,array.length-1);
+    }
+
+    /**
+     * 将数组索引位置开始进行偏移
+     * @param array 数组
+     * @param startIndex 索引
+     * @param offset 偏移量
+     * @param endIndex 结束索引
+     * @param <T> 数组类型
+     */
+    public static<T> void offset(T[] array, int startIndex, int offset,int endIndex) {
         if (offset == 0 || array.length - Math.abs(offset) <= 0) {
             return;
         }
 
         if (offset > 0) {
-            //元素后移
-            offsetBack(array,index,offset);
+            //元素后移,直接覆盖后方元素
+            offsetBack(array,startIndex,offset,endIndex);
         }else{
-            //元素前移
-            offsetPre(array,index,-offset);
+            //元素前移，直接覆盖前面元素
+            offsetPre(array,startIndex,-offset,endIndex);
         }
     }
 
@@ -283,12 +295,13 @@ public class ArrayUtil {
     /**
      * 向前偏移
      * @param array 数组
-     * @param index 偏移开始索引
+     * @param startIndex 偏移开始索引
      * @param offset 偏移量
+     * @param endIndex 偏移结束索引
      * @param <T> 数组类型
      */
-    private static<T> void offsetPre(T[] array, int index, int offset) {
-        for (int i = index-offset, endFlag = array.length - offset; i < endFlag; i++) {
+    private static<T> void offsetPre(T[] array, int startIndex, int offset,int endIndex) {
+        for (int i = startIndex-offset, endFlag = endIndex - offset; i <= endFlag; i++) {
             array[i] = array[i + offset];
         }
     }
@@ -296,12 +309,13 @@ public class ArrayUtil {
     /**
      * 向后偏移
      * @param array 数组
-     * @param index 偏移开始索引
+     * @param startIndex 偏移开始索引
      * @param offset 偏移量
+     * @param endIndex 偏移结束索引
      * @param <T> 数组类型
      */
-    private static<T> void offsetBack(T[] array, int index, int offset) {
-        for (int i = array.length - 1, endFlag = index + offset; i >= endFlag; i--) {
+    private static<T> void offsetBack(T[] array, int startIndex, int offset,int endIndex) {
+        for (int i = endIndex+offset, endFlag = startIndex + offset; i >= endFlag; i--) {
             array[i] = array[i - offset];
         }
     }

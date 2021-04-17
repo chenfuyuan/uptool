@@ -14,7 +14,7 @@ public class ArrayUtilTest {
     @Test
     public void testOffset() {
         Integer[] array = {1,2,3,4,5};
-        ArrayUtil.offset(array,2,-1);
+        ArrayUtil.offset(array,2,1,3);
         System.out.println(Arrays.toString(array));
     }
 }

@@ -103,7 +103,7 @@ public class ArrayUtil {
      *
      * @param source 源
      * @param target 目标
-     * @param <T> 数组类型
+     * @param <T>    数组类型
      */
     public static <T> void copy(T[] source, T[] target) {
         int minLength = Math.min(source.length, target.length);
@@ -117,7 +117,7 @@ public class ArrayUtil {
      * @param target     目标
      * @param startIndex 开始索引
      * @param length     长度
-     * @param <T> 数组类型
+     * @param <T>        数组类型
      */
     public static <T> void copy(T[] source, T[] target, int startIndex, int length) {
         copy(source, target, startIndex, length, startIndex);
@@ -260,24 +260,26 @@ public class ArrayUtil {
 
     /**
      * 将数组索引位置开始进行偏移
-     * @param array 数组
-     * @param index 索引
+     *
+     * @param array  数组
+     * @param index  索引
      * @param offset 偏移量
-     * @param <T> 数组类型
+     * @param <T>    数组类型
      */
-    public static<T> void offset(T[] array, int index, int offset) {
-        offset(array,index,offset,array.length-1);
+    public static <T> void offset(T[] array, int index, int offset) {
+        offset(array, index, offset, array.length - 1);
     }
 
     /**
      * 将数组索引位置开始进行偏移
-     * @param array 数组
+     *
+     * @param array      数组
      * @param startIndex 索引
-     * @param offset 偏移量
-     * @param endIndex 结束索引
-     * @param <T> 数组类型
+     * @param offset     偏移量
+     * @param endIndex   结束索引
+     * @param <T>        数组类型
      */
-    public static<T> void offset(T[] array, int startIndex, int offset,int endIndex) {
+    public static <T> void offset(T[] array, int startIndex, int offset, int endIndex) {
         if (offset == 0 || array.length - Math.abs(offset) <= 0 || startIndex > endIndex) {
             return;
         }
@@ -285,38 +287,40 @@ public class ArrayUtil {
 
         if (offset > 0) {
             //元素后移,直接覆盖后方元素
-            offsetBack(array,startIndex,offset,endIndex);
-        }else{
+            offsetBack(array, startIndex, offset, endIndex);
+        } else {
             //元素前移，直接覆盖前面元素
-            offsetPre(array,startIndex,-offset,endIndex);
+            offsetPre(array, startIndex, -offset, endIndex);
         }
     }
 
 
     /**
      * 向前偏移
-     * @param array 数组
+     *
+     * @param array      数组
      * @param startIndex 偏移开始索引
-     * @param offset 偏移量
-     * @param endIndex 偏移结束索引
-     * @param <T> 数组类型
+     * @param offset     偏移量
+     * @param endIndex   偏移结束索引
+     * @param <T>        数组类型
      */
-    private static<T> void offsetPre(T[] array, int startIndex, int offset,int endIndex) {
-        for (int i = startIndex-offset, endFlag = endIndex - offset; i <= endFlag; i++) {
+    private static <T> void offsetPre(T[] array, int startIndex, int offset, int endIndex) {
+        for (int i = startIndex - offset, endFlag = endIndex - offset; i <= endFlag; i++) {
             array[i] = array[i + offset];
         }
     }
 
     /**
      * 向后偏移
-     * @param array 数组
+     *
+     * @param array      数组
      * @param startIndex 偏移开始索引
-     * @param offset 偏移量
-     * @param endIndex 偏移结束索引
-     * @param <T> 数组类型
+     * @param offset     偏移量
+     * @param endIndex   偏移结束索引
+     * @param <T>        数组类型
      */
-    private static<T> void offsetBack(T[] array, int startIndex, int offset,int endIndex) {
-        for (int i = endIndex+offset, endFlag = startIndex + offset; i >= endFlag; i--) {
+    private static <T> void offsetBack(T[] array, int startIndex, int offset, int endIndex) {
+        for (int i = endIndex + offset, endFlag = startIndex + offset; i >= endFlag; i--) {
             array[i] = array[i - offset];
         }
     }
@@ -324,15 +328,39 @@ public class ArrayUtil {
     /**
      * 交换数组元素
      * 将array[i] 和 array[j]互换
+     *
      * @param array 数组
-     * @param i 索引i
-     * @param j 索引j
-     * @param <T> 数组类型
+     * @param i     索引i
+     * @param j     索引j
+     * @param <T>   数组类型
      */
     public static <T> void exch(T[] array, int i, int j) {
         T temp = array[i];
         array[i] = array[j];
         array[j] = temp;
+    }
+
+    /**
+     * 将数组进行等分
+     *
+     * @param array     数组
+     * @param divideNum 等分系数
+     * @param <T>       数组类型
+     * @return 等分后的数组
+     */
+    public static <T> T[][] quallyDivide(T[] array, int divideNum) {
+        if (array.length == 0) {
+            return (T[][]) new Object[0][0];
+        }
+        //分成几份
+        int length = array.length % divideNum == 0 ? array.length / divideNum : array.length / divideNum + 1;
+        T[][] result = (T[][]) new Object[length][];
+        for (int i = 0, j = 0; i < array.length; i+=divideNum,j++) {
+            result[j] = (T[]) new Object[j + 1 < length || array.length % divideNum == 0 ? divideNum : i % divideNum];
+            copy(array,result[j],i,result[j].length,0);
+        }
+
+        return result;
     }
 
 }

@@ -11,6 +11,8 @@
     <description>提升效率工具类，旨在提升效率</description>
     <modules>
         <module>upTool-core</module>
+        <module>upTool-io</module>
+        <module>upTool-common</module>
     </modules>
 
     <properties>
@@ -21,23 +23,37 @@
         <compile.version>8</compile.version>
         <junit.version>4.13.1</junit.version>
         <lombok.version>1.18.16</lombok.version>
+        <upTool.version>1.0.0</upTool.version>
     </properties>
 
-    <dependencies>
-        <!-- 全局单元测试 -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.upTool</groupId>
+                <artifactId>upTool-common</artifactId>
+                <version>${upTool.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.upTool</groupId>
+                <artifactId>upTool-core</artifactId>
+                <version>${upTool.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 
     <build>

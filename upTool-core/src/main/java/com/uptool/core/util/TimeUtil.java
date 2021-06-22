@@ -2,6 +2,7 @@ package com.uptool.core.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -28,7 +29,13 @@ public class TimeUtil {
     /**
      * 默认的时间格式
      */
-    private static final String DEFAULT_DATE_PATTERN = "yyyy-mm-dd hh:mm:ss";
+    private static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd hh:mm:ss";
+
+    private static final SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat(DEFAULT_DATE_PATTERN);
+
+    static {
+        DATE_FORMAT_CACHE.put(DEFAULT_DATE_PATTERN, DEFAULT_DATE_FORMAT);
+    }
 
 
     /**
@@ -89,6 +96,10 @@ public class TimeUtil {
 
         //将字符串转化为时间
         try {
+            if (!str.contains(":")) {
+                str += " 00:00:00";
+            }
+
             Date result = simpleDateFormat.parse(str);
 
             //写入缓存
@@ -136,5 +147,42 @@ public class TimeUtil {
     public static int dayIntervalNowToDeadLine(String dateStr,String pattern) {
         Date date = TimeUtil.strToDate(dateStr, pattern);
         return dayInterval(new Date(), date);
+    }
+
+    /**
+     * 获取 今天 到 截止日期的时间间隔 (指定格式)
+     * @param date 截止日期字符串
+     * @return 今天 到 截止日期的时间间隔
+     */
+    public static int dayIntervalNowToDeadLine(Date date,String pattern) {
+        return dayInterval(new Date(), date);
+    }
+
+
+    public static String dateToStr(Date date) {
+        return DEFAULT_DATE_FORMAT.format(date);
+    }
+
+    public static String dateToStr(Calendar calendar) {
+        return dateToStr(calendar.getTime());
+    }
+
+    public static String dateToStr(Date date, String pattern) {
+        SimpleDateFormat simpleDateFormat = DATE_FORMAT_CACHE.get(pattern);
+        if (simpleDateFormat == null) {
+            synchronized (TimeUtil.class) {
+                if (simpleDateFormat == null) {
+                    simpleDateFormat = new SimpleDateFormat(pattern);
+                    DATE_FORMAT_CACHE.put(pattern,simpleDateFormat);
+                }
+            }
+        }
+
+        return simpleDateFormat.format(date);
+    }
+
+
+    public static String dateToStr(Calendar calendar, String pattern) {
+        return dateToStr(calendar.getTime(), pattern);
     }
 }

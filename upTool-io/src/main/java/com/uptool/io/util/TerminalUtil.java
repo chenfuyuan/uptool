@@ -36,4 +36,8 @@ public class TerminalUtil {
 
         return TERMINAL_INPUT_INSTANCE;
     }
+
+    public static boolean isTrue(String str) {
+        return "Y".equals(str.toUpperCase()) || "YES".equals(str.toUpperCase());
+    }
 }

@@ -49,4 +49,49 @@ public class StringUtil {
         }
         return false;
     }
+
+    /**
+     * 清除字符串中多余空格 当超过两个空格时，都缩减为一个空格
+     * @param str 字符串
+     * @return 去除结果
+     */
+    public  static String removeSurPlusSpace(String str) {
+        char[] chars = str.toCharArray();
+        //找到第一个不是空格的位置
+        int startIndex = 0;
+        while (startIndex < chars.length && ' ' == chars[startIndex]) {
+            startIndex++;
+        }
+
+        //上一个字符串是否为空格
+        boolean preCharIsSpace = false;
+        //是否对数组进行偏移
+        boolean isMove = false;
+        //偏移量
+        int offset = 0;
+
+        for (int i = startIndex+1; i < chars.length-offset; i++) {
+            //i+offset为偏移后的位置
+            if (' ' == chars[i+offset]) {
+                if (preCharIsSpace) {
+                    //当第二次空格时，将后面的元素偏移量+1
+                    offset++;
+                    isMove = true;
+                } else {
+                    preCharIsSpace = true;
+                }
+            }else {
+                preCharIsSpace = false;
+            }
+
+            //偏移
+            if (isMove){
+                chars[i] = chars[i + offset];
+            }
+
+        }
+
+        //生成新的字符串
+        return new String(chars, startIndex, chars.length - startIndex - offset);
+    }
 }

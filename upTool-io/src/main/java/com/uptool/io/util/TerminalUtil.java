@@ -1,5 +1,6 @@
 package com.uptool.io.util;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -17,6 +18,8 @@ public class TerminalUtil {
      */
     private static Scanner TERMINAL_INPUT_INSTANCE;
 
+
+    private static final String DEFAULT_SPLIT = ",";
 
     /**
      * 获取控制台输入
@@ -39,5 +42,15 @@ public class TerminalUtil {
 
     public static boolean isTrue(String str) {
         return "Y".equals(str.toUpperCase()) || "YES".equals(str.toUpperCase());
+    }
+
+    public static int[] strToInt(String split, String source) {
+        String[] splitArray = source.split(split);
+        return Arrays.stream(splitArray).mapToInt(item -> Integer.parseInt(item)).toArray();
+    }
+
+    public static int[] strToInt(String source) {
+        return strToInt(DEFAULT_SPLIT, source);
+
     }
 }

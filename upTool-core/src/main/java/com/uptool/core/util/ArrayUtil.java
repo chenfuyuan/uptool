@@ -363,4 +363,26 @@ public class ArrayUtil {
         return result;
     }
 
+
+    public static <T extends Comparable> T findMinIndex(T[] array) {
+        T min = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (CompareUtil.less(array[i],min)) {
+                min = array[i];
+            }
+        }
+
+        return min;
+
+    }
+
+    public static int findMinIndex(int[] array) {
+        int min = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (CompareUtil.less(array[i],min)) {
+                min = array[i];
+            }
+        }
+        return min;
+    }
 }

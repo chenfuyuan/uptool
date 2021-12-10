@@ -13,6 +13,7 @@
         <module>upTool-core</module>
         <module>upTool-io</module>
         <module>upTool-common</module>
+        <module>upTool-sort</module>
     </modules>
 
     <properties>

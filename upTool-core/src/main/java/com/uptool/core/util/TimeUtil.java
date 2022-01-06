@@ -31,10 +31,18 @@ public class TimeUtil {
      */
     private static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd hh:mm:ss";
 
+    /**
+     * 只有日期，没有时间
+     */
+    private static final String DATE_PATTERN_NO_TIME = "yyyy-MM-dd";
+
     private static final SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat(DEFAULT_DATE_PATTERN);
+
+    private static final SimpleDateFormat DATE_FORMAT_NO_TIME = new SimpleDateFormat(DATE_PATTERN_NO_TIME);
 
     static {
         DATE_FORMAT_CACHE.put(DEFAULT_DATE_PATTERN, DEFAULT_DATE_FORMAT);
+        DATE_FORMAT_CACHE.put(DATE_PATTERN_NO_TIME, DATE_FORMAT_NO_TIME);
     }
 
 
@@ -184,5 +192,9 @@ public class TimeUtil {
 
     public static String dateToStr(Calendar calendar, String pattern) {
         return dateToStr(calendar.getTime(), pattern);
+    }
+
+    public static String todayNoTimeToStr(){
+        return dateToStr(new Date(), DATE_PATTERN_NO_TIME);
     }
 }

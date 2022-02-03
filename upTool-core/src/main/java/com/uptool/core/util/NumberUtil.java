@@ -14,6 +14,11 @@ import java.math.RoundingMode;
 public class NumberUtil {
 
     /**
+     * Long类型的 0L
+     */
+    public static Long LONG_ZERO = Long.valueOf(0L);
+
+    /**
      * 零
      */
     public static int ZERO = 0;
@@ -130,6 +135,14 @@ public class NumberUtil {
         return value == null || isZero(value);
     }
 
+    /**
+     * 判断包装类型 Long 是否为0 或为空
+     * @param value
+     * @return
+     */
+    public static boolean isEmptyOrZero(Long value){
+        return value == null || isZero(value);
+    }
 
     /**
      * 拆箱，避免为空

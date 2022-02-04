@@ -1,6 +1,7 @@
 package com.uptool.core.util;
 
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.REUtil;
 import com.uptool.core.constant.GlobalConstant;
 
 import java.math.BigDecimal;
@@ -240,6 +241,14 @@ public class NumberUtil {
         }
 
         return GlobalConstant.INT_NOT_EXIST;
+    }
+
+    public static boolean isEqual(Long num1, Long num2) {
+        if (num1 == null || num2 == null) {
+            return false;
+        }
+
+        return num1.compareTo(num2) == 0;
     }
 
 }

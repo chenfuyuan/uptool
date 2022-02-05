@@ -281,4 +281,37 @@ public class EmptyUtil {
         return !isEmpty(collection);
     }
 
+    public static boolean isNull(Object obj) {
+        return obj == null;
+    }
+
+    public static boolean isAllNull(Object ...objs) {
+        if (objs == null) {
+            throw new RuntimeException("校验所有为空时，传递参数为空!");
+        }
+
+        for (Object obj : objs) {
+            if (!isNull(obj)) {
+                //有一个不为空，则返回false
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static boolean isAllNoNull(Object... objs) {
+        if (objs == null) {
+            throw new RuntimeException("校验所有为非空时，传递参数为空!");
+        }
+
+        for (Object obj : objs) {
+            if (isNull(obj)) {
+                //有一个不为空，则返回false
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

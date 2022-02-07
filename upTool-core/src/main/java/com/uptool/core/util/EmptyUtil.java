@@ -1,5 +1,7 @@
 package com.uptool.core.util;
 
+import com.uptool.core.able.EmptyAble;
+
 import java.util.Collection;
 
 /**
@@ -18,6 +20,10 @@ public class EmptyUtil {
      */
     public static boolean isEmpty(Object obj) {
         return obj == null;
+    }
+
+    public static boolean isEmpty(EmptyAble obj) {
+        return obj == null || obj.isEmpty();
     }
 
     /**
@@ -313,5 +319,9 @@ public class EmptyUtil {
         }
 
         return true;
+    }
+
+    public static boolean isNotNull(Object obj) {
+        return !isNull(obj);
     }
 }
